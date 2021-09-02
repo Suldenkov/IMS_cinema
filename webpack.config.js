@@ -6,10 +6,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
-	entry: './src/js/index.js',
+	entry: './src/assets/js/index.js',
 	output:{
 		filename: 'main.js',
 		path: path.resolve(__dirname, 'dist')
+	},
+	devServer:{
+		port:3000
 	},
 	module:{
 		rules: [
