@@ -1,19 +1,23 @@
-.date{
-    font-size: 2rem;
+
+.calendar{
     &_block{
-        z-index: 101;
+        z-index: 150;
         padding: 0.7em 0.9em;
         display: flex;
         flex-direction: column;
         text-align: center;
     }
-}
-
-.week_day{
-    font-size: 1rem;
-    color: rgba(0,0,0,0.5);
-    line-height: 1.4rem;
-    margin-top: 0.4em;
+    &_date{
+        font-size: 2rem;
+        z-index: 101;
+    }
+    &_weekDay{
+        z-index: 101;
+        font-size: 1rem;
+        color: rgba(0,0,0,0.5);
+        line-height: 1.4rem;
+        margin-top: 0.4em;
+    } 
 }
 
 .day_off{
