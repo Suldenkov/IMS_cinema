@@ -1,23 +1,28 @@
 
 .calendar{
     &_block{
-        z-index: 150;
+        
+        // margin: 0 auto;
         padding: 0.7em 0.9em;
-        display: flex;
+        // display: flex;
         flex-direction: column;
         text-align: center;
     }
     &_date{
         font-size: 2rem;
-        z-index: 101;
     }
     &_weekDay{
-        z-index: 101;
         font-size: 1rem;
         color: rgba(0,0,0,0.5);
         line-height: 1.4rem;
         margin-top: 0.4em;
     } 
+}
+
+.all_day{
+    display: flex;
+    margin: 0 auto;
+    width: 120ch;
 }
 
 .day_off{
@@ -26,42 +31,40 @@
 
 .arrow{
     display: flex;
-    z-index: 100;
-    position: absolute;
-    left: 50px;
-    top: 50%;
+    justify-content: flex-start;
+    position: relative;
     border-radius: 50%;
     background: rgba(255,255,255,0.4);
     cursor: pointer;
 
     &:before{
-    content: '';
-    position: absolute;
-    left: 0%;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    margin-left: -10px;
-    margin-top: -10px;
-    border: 1px solid #000;
-    border-bottom: none;
-    border-right: none;
-    transform: translateX(5px) rotate(-45deg);
+        display: none;
+        content: '';
+        position: absolute;
+        left: 0%;
+        top: 50%;
+        width: 2rem;
+        height: 2rem;
+        margin-left: -10px;
+        margin-top: -10px;
+        border: 1px solid #000;
+        border-bottom: none;
+        border-right: none;
+        transform: rotate(-45deg);
     }
 
     &:after{
         content: '';
         position: absolute;
         top: 50%;
-        right: 0%;
-        width: 20px;
-        height: 20px;
-        margin-left: -10px;
-        margin-top: -10px;
+        right: 5rem;
+        width: 2rem;
+        height: 2rem;
+        margin-left: 1em;
+        margin-top: -1em;
         border: 1px solid #000;
         border-bottom: none;
         border-right: none;
-        transform: translateX(15px) rotate(135deg);
+        transform: rotate(135deg);
     }
-
 }

@@ -1,4 +1,4 @@
-const calendar = document.querySelector('.arrow');
+const calendar = document.querySelector('.all_day');
 const dayLater = 20;
 export const Day = (new Date()).getDay();
 
@@ -41,6 +41,13 @@ createCalendar();
 let n = document.querySelector('.arrow');
 n.addEventListener('click', (e) => {
     console.log(e.target.parentElement);
+    if (e.offsetX < 0) {
+        console.log('before');
+    }
+   
+    if (e.offsetX > 200) {
+        console.log('after');
+    }
 })
 
 

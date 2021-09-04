@@ -16,9 +16,10 @@ body{
 	font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
-.container{
-	width: 90ch;
-	padding-top: 3.75em;
+.page__content{
+	width: 140ch;
+	padding-top: 9em;
+	margin: 0 auto;
 }
 
 @import "blocks/nav";
