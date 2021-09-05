@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
@@ -14,6 +14,11 @@ module.exports = {
 	devServer:{
 		port:3000
 	},
+	resolve: {
+		alias: {
+		  images: path.resolve(__dirname, 'src/assets/img/'),
+		},
+	},
 	module:{
 		rules: [
 			{
@@ -23,7 +28,11 @@ module.exports = {
 					'css-loader',
 					'sass-loader'
 				]
-			}
+			},
+			{
+				test: /\.(png|jpg|svg|gif)$/,
+				type: 'assets/imgs',
+			},
 		]
 	},
 	plugins: [
@@ -32,6 +41,15 @@ module.exports = {
 		}),
 		new MiniCssExtractPlugin({
 			filename: 'style.css',
+		}),
+		// new CopyWebpackPlugin(
+		// 	patterns : [
+		// 	{from: `./src/assets/imgs`, to: './dist/imgs'},
+		// ])
+		new CopyWebpackPlugin({
+			patterns: [
+			  {from: `./src/assets/imgs`, to: './imgs'}
+			],
 		}),
 	]
 }

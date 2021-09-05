@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/Suldenkov/IMS_ciname#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
+    "image-webpack-loader": "^7.0.1",
     "mini-css-extract-plugin": "^2.2.1",
     "sass": "^1.38.2",
     "sass-loader": "^12.1.0",

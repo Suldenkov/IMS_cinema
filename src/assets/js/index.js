@@ -1,3 +1,3 @@
 import '../scss/style.scss'
-import './block/films.js'
+import './block/poster'
 

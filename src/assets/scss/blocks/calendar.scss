@@ -1,70 +1,63 @@
-
-.calendar{
-    &_block{
-        
-        // margin: 0 auto;
+.slider{
+    &__block{
         padding: 0.7em 0.9em;
-        // display: flex;
-        flex-direction: column;
         text-align: center;
     }
-    &_date{
+    &__date{
         font-size: 2rem;
     }
-    &_weekDay{
+    &__weekDay{
         font-size: 1rem;
         color: rgba(0,0,0,0.5);
         line-height: 1.4rem;
         margin-top: 0.4em;
     } 
-}
+    &__dayOff{
+        color:#F72F2F;
+    }
+    &__days{
+        width: 120ch;
+        position: relative;
+        left: 0;
+        display: flex;
+        transition: all ease 1s;
+    }
+    &__title{
 
-.all_day{
-    display: flex;
-    margin: 0 auto;
-    width: 120ch;
-}
-
-.day_off{
-    color:#F72F2F;
+    }
+    &__content{
+        position: relative;
+        overflow: hidden;
+    }
 }
 
 .arrow{
-    display: flex;
-    justify-content: flex-start;
     position: relative;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
     cursor: pointer;
+    transition: all ease 1s;
 
-    &:before{
-        display: none;
+    &__left:after, &__right:after{
         content: '';
         position: absolute;
-        left: 0%;
-        top: 50%;
-        width: 2rem;
-        height: 2rem;
-        margin-left: -10px;
-        margin-top: -10px;
+        
+        width: 1em;
+        height: 1em;
+        margin-top: -2.7em;
         border: 1px solid #000;
         border-bottom: none;
         border-right: none;
-        transform: rotate(-45deg);
+        background: #fff;
     }
-
-    &:after{
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 5rem;
-        width: 2rem;
-        height: 2rem;
-        margin-left: 1em;
-        margin-top: -1em;
-        border: 1px solid #000;
-        border-bottom: none;
-        border-right: none;
+    
+    &__right:after{
         transform: rotate(135deg);
+        right: -2em;
+    }
+    &__left{
+        display: none;
+        &:after{
+            left: -2em;
+            transform: rotate(-45deg);
+        }
     }
 }
