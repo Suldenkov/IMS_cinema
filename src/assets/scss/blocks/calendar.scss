@@ -2,9 +2,14 @@
     &__block{
         padding: 0.7em 0.9em;
         text-align: center;
+        cursor: pointer;
     }
     &__date{
         font-size: 2rem;
+    }
+    &__currentDay{
+        background-color: rgb(221, 220, 220);
+        border-radius: 2em;
     }
     &__weekDay{
         font-size: 1rem;

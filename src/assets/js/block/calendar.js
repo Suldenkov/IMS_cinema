@@ -1,7 +1,7 @@
 const   calendar = document.querySelector('.slider__days');
 const   leftArrow = document.querySelector('.arrow__left');
 const   rightArrow = document.querySelector('.arrow__right');
-export const Day = (new Date()).getDay();
+export let Day = new Date().getDate();
 export  const numberDay = 60;
 
 function getWeekDay(date) {
@@ -27,7 +27,7 @@ function createCalendar()
     {
         let week_day = getWeekDay(nextDay);
         fragment += `
-            <div class="slider__block">
+            <div class="slider__block${nextDay.getDate() === Day ? ' slider__currentDay' : ''}">
                 <span class="slider__date">${nextDay.getDate()}</span>
                 <span class="slider__weekDay${week_day == 'СБ' || week_day == 'ВС' ? ' slider__dayOff' : ''}">${week_day}</span>
             </div>
