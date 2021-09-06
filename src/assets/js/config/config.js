@@ -1,0 +1,1 @@
+export const numberDay = 60;

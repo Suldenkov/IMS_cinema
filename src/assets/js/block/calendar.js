@@ -1,8 +1,10 @@
+import { renderToday } from './poster';
+import * as conf from '../config/config'
+
 const   calendar = document.querySelector('.slider__days');
 const   leftArrow = document.querySelector('.arrow__left');
 const   rightArrow = document.querySelector('.arrow__right');
-export let Day = new Date().getDate();
-export  const numberDay = 60;
+let     day = 0;
 
 function getWeekDay(date) {
 	let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
@@ -18,39 +20,30 @@ function getMonth(date)
 
 function createCalendar()
 {
-    let lastDay = new Date();
     let nextDay = new Date();
-    let iter = numberDay;
     let fragment = '';
 
-    while (iter != 0)
-    {
+    for (let iter = 0; iter < conf.numberDay; iter++) {
         let week_day = getWeekDay(nextDay);
         fragment += `
-            <div class="slider__block${nextDay.getDate() === Day ? ' slider__currentDay' : ''}">
+            <div class="slider__block${iter === day ? ' slider__currentDay' : ''}" data-id="${iter}">
                 <span class="slider__date">${nextDay.getDate()}</span>
                 <span class="slider__weekDay${week_day == 'СБ' || week_day == 'ВС' ? ' slider__dayOff' : ''}">${week_day}</span>
             </div>
         `;
-        // console.log(`${getMonth(lastDay).toUpperCase()} ${lastDay.getDate()} ${getWeekDay(lastDay)}`);
         nextDay.setDate(nextDay.getDate() + 1);
-        iter--;
     }
     calendar.innerHTML = fragment;
 }
 
 createCalendar();
-// let n = document.querySelector('.arrow');
-// n.addEventListener('click', (e) => {
-//     console.log(e.target.parentElement);
-//     if (e.offsetX < 0) {
-//         console.log('before');
-//     }
-   
-//     if (e.offsetX > 200) {
-//         console.log('after');
-//     }
-// })
+renderToday(day);
+calendar.addEventListener('click', (e) => {
+    day = parseInt(e.target.closest('div').dataset.id);
+    createCalendar()
+    renderToday(day);
+})
+
 
 let offset = 0;
 let widthBlock = calendar.children[0].offsetWidth;

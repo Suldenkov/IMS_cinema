@@ -1,6 +1,7 @@
-import { Day, numberDay } from './calendar'
+import {numberDay} from '../config/config'
 import * as conf from '../config/films.config';
 
+const   randomNum = 7;
 const   poster = document.querySelector('.poster');
 
 const   generateOneDay = () => {
@@ -8,7 +9,7 @@ const   generateOneDay = () => {
     let day = {};
     for (let hours = 11; hours < 22; hours += 1)
     {
-        let id = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+        let id = Math.floor(Math.random() * (randomNum - 1 + 1)) + 1;
         if (id in day)
             day[id].times.push(`${hours}:${minuts === 0 ? '00' : minuts}`);
         else
@@ -32,8 +33,7 @@ const   initRandomFilm = () =>{
 
 const arr = initRandomFilm();
 
-let index = 0;
-const renderToday = (day) =>{
+export const renderToday = (day) =>{
     let fragment = '';
     for (const iterator of Object.values(arr[day])) {
         fragment += `
@@ -44,7 +44,5 @@ const renderToday = (day) =>{
             <h4 class="poster__film__title">${iterator.title}</h4>
         </div>`
     }
-    poster.insertAdjacentHTML('afterbegin', fragment);
+    poster.innerHTML = fragment;
 }
-
-renderToday(index);

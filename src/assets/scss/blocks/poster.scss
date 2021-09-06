@@ -4,7 +4,7 @@
     justify-content: space-between;
     padding-top: 5em;
     &__film{
-        width: 50ch;
+        width: 55ch;
         margin-bottom: 5em;
 
         &:nth-child(odd){
@@ -12,8 +12,8 @@
         }
 
         &__view{
-            height: 30ch;
-            border-radius: 1.5em;
+            height: 32ch;
+            border-radius: 10px;
             overflow: hidden;
         }
 
