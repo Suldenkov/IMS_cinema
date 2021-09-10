@@ -21,10 +21,17 @@ function getMonth(date)
 function createCalendar()
 {
     let nextDay = new Date();
+    // let fragment = document.createDocumentFragment();
     let fragment = '';
 
     for (let iter = 0; iter < conf.numberDay; iter++) {
         let week_day = getWeekDay(nextDay);
+        // let block = document.createElement('div');
+        // block.classList.add('slider__block');
+        // block.classList.add(iter === day ? ' slider__currentDay' : '');
+        // let span = document.createElement('span');
+        // span.classList.a
+
         fragment += `
             <div class="slider__block${iter === day ? ' slider__currentDay' : ''}" data-id="${iter}">
                 <span class="slider__date">${nextDay.getDate()}</span>
@@ -33,35 +40,48 @@ function createCalendar()
         `;
         nextDay.setDate(nextDay.getDate() + 1);
     }
-    calendar.innerHTML = fragment;
+    calendar.insertAdjacentHTML('afterbegin', fragment);
+    // calendar.innerHTML = fragment;
 }
 
 createCalendar();
 renderToday(day);
 calendar.addEventListener('click', (e) => {
+    const allDay = document.querySelectorAll('.slider__block');
+    allDay[day].classList.remove('slider__currentDay');
     day = parseInt(e.target.closest('div').dataset.id);
-    createCalendar()
+    allDay[day].classList.add('slider__currentDay');
+    // createCalendar()
     renderToday(day);
 })
 
 
 let offset = 0;
-let widthBlock = calendar.children[0].offsetWidth;
+let slideCount = 5;
+let slide = 0;
+let calendarWidth = calendar.offsetWidth;
 
 rightArrow.addEventListener('click', () =>{
-    if (60 / 2 + 10 < offset / -widthBlock)
+    const slideWidth = calendar.children[0].offsetWidth;
+    let count = (60 - (Math.floor(calendarWidth / slideWidth) - 1));
+
+    if (count < slide)
         return ;
-    offset -= widthBlock * 5;
+    offset -= slideCount * slideWidth;
     calendar.style.left = `${offset}px`;
     if (offset != 0)
         leftArrow.style.display = 'block';
+    slide += slideCount;
 });
 
 leftArrow.addEventListener('click', () =>{
-    offset += widthBlock * 5;
+    const slideWidth = calendar.children[0].offsetWidth;
+
+    offset += slideCount * slideWidth;
     calendar.style.left = `${offset}px`;
     if (offset == 0)
         leftArrow.style.display = 'none';
+    slide -= slideCount;
 });
 
 
