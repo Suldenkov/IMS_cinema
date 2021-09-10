@@ -1,4 +1,5 @@
 import {numberDay} from '../config/config'
+import { renderModalWindow } from './modalWindow';
 import * as conf from '../config/films.config';
 
 const   randomNum = 7;
@@ -31,13 +32,13 @@ const   initRandomFilm = () =>{
     return arr;
 }
 
-const arr = initRandomFilm();
+export const arr = initRandomFilm();
 
 export const renderToday = (day) =>{
     let fragment = '';
     for (const iterator of Object.values(arr[day])) {
         fragment += `
-        <div class="poster__film">
+        <div class="poster__film" data-title="${iterator.title}">
             <div class="poster__film__view">
                 <img class="poster__film__img" src="${iterator.url}" alt="">
             </div>
@@ -46,3 +47,14 @@ export const renderToday = (day) =>{
     }
     poster.innerHTML = fragment;
 }
+
+poster.addEventListener('click', (e) => {
+    let filmName = '';
+    console.log(e.target);
+    if (e.target.closest('div').parentElement.className === 'poster__film')
+        filmName = e.target.closest('div').parentElement.dataset.title;
+    else if (e.target.closest('div').className === 'poster__film')
+        film = e.target.closest('div').dataset.title;
+    if (filmName !== '')
+        renderModalWindow(0, filmName, arr);
+})

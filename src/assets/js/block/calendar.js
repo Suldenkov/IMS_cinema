@@ -26,12 +26,7 @@ function createCalendar()
 
     for (let iter = 0; iter < conf.numberDay; iter++) {
         let week_day = getWeekDay(nextDay);
-        // let block = document.createElement('div');
-        // block.classList.add('slider__block');
-        // block.classList.add(iter === day ? ' slider__currentDay' : '');
-        // let span = document.createElement('span');
-        // span.classList.a
-
+        
         fragment += `
             <div class="slider__block${iter === day ? ' slider__currentDay' : ''}" data-id="${iter}">
                 <span class="slider__date">${nextDay.getDate()}</span>
@@ -46,6 +41,7 @@ function createCalendar()
 
 createCalendar();
 renderToday(day);
+
 calendar.addEventListener('click', (e) => {
     const allDay = document.querySelectorAll('.slider__block');
     allDay[day].classList.remove('slider__currentDay');
