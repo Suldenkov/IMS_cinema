@@ -1,4 +1,5 @@
 import { renderToday } from './poster';
+import { getTimeTable } from '../api/api';
 import * as conf from '../config/config'
 
 const   calendar = document.querySelector('.slider__days');
@@ -39,8 +40,13 @@ function createCalendar()
     // calendar.innerHTML = fragment;
 }
 
-createCalendar();
-renderToday(day);
+
+getTimeTable()
+.then(() => {
+    createCalendar();
+    renderToday(day);
+})
+
 
 calendar.addEventListener('click', (e) => {
     const allDay = document.querySelectorAll('.slider__block');
@@ -49,6 +55,7 @@ calendar.addEventListener('click', (e) => {
     allDay[day].classList.add('slider__currentDay');
     // createCalendar()
     renderToday(day);
+    
 })
 
 

@@ -1,11 +1,71 @@
 .modal{
-	display: none;
-	width: 300px;
-	height: 200px;
-	background: white;
-	position:fixed;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-    z-index:100;
+	&__overlay{
+		z-index: 1000;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		background: rgba(0, 0, 0, 0.5);
+	}
+	&__window{
+		width: 700px;
+		height: 400px;
+		background: white;
+		margin: 100px auto;
+		border-radius: 10px;
+	}
+	&__header{
+		padding: 15px 20px;
+		border-bottom: 1.3px solid gray;
+		display: flex;
+		justify-content: space-between;
+	}
+	&__body{
+		padding: 15px 20px;
+	}
+	&__footer
+	{
+		padding-top: 2em;
+	}
+	&__title{
+		font-weight: bold;
+		font-size: 2rem;
+	}
+	&__close{
+		cursor: pointer;
+	}
+	&__time{
+		background: rgb(243, 191, 21);
+		font-size: 1.2rem;
+		border-radius: 10px;
+		padding: 5px 5px;
+		margin-left: 10px;
+		cursor: pointer;
+		&_table{
+			display: flex;
+			justify-content: start;
+		}
+	}
+	&__content{
+		padding-top: 3em;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+}
+
+.row{
+	margin-top: 0.6em;
+	display: flex;
+}
+.place{
+	background: rgb(236, 97, 4);
+	padding: 0.4em;
+	margin-left: 0.2em;
+}
+
+.current_time{
+	background: darken($color: rgb(243, 191, 21), $amount: 15%);
 }

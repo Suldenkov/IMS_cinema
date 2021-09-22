@@ -34,3 +34,17 @@
         }
     }
 }
+
+@media (max-width: 948px) {
+    .poster{
+        // flex-direction: column;
+
+        &__film{
+            // margin: 2em auto;
+            width: 40ch;
+            // &:nth-child(odd){
+            //     margin: 2em auto;
+            // }
+        }
+    }
+}
