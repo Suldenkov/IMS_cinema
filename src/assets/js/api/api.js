@@ -14,3 +14,10 @@ export const getTimeTable = async () => {
 		console.log(error);
 	})
 }
+
+export const postBuy = async () => {
+	await axios.post(`${URL}/api`, {data})
+	.then((response) => {
+		console.log(response);
+	})
+}

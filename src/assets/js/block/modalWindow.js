@@ -1,3 +1,4 @@
+import {postBuy} from '../api/api';
 let countPlace = 20;
 const renderArea = (places) => {
 	let row = 1;
@@ -5,10 +6,25 @@ const renderArea = (places) => {
 		let place = index > countPlace -1 ? index % countPlace + 1: index + 1;
 		if (index !== 0 && index % countPlace === 0)
 			accamulator += `</div><div class="row"><span class="row__title">Ряд ${row++}</span>`
-		return accamulator += `<span data-id="${row - 2}-${place - 1}" class="place${value ? ' place__busy' : ''}">${place}</span>`;
+		return accamulator += `<span data-id="${row - 2}-${place - 1}" class="place${value ? ' place__busy' : ' place__free'}">${place}</span>`;
 	}, `<div class="row"><span class="row__title">Ряд ${row++}</span>`);
-	fragment += `</div`;
+	fragment += `</div>`;
 	return (fragment);
+}
+
+const renderTotalPrice = (amount, price) => {
+	let fragment = amount === 0 ? '' : `<div class="total">
+											<span class="total__amount">
+												Биллетов: ${amount}
+											</span>
+											<span class="total__price">
+												Итого: ${amount * price}₽
+											</span>
+										</div>
+										<div class="registration">
+												<button class="registration__buy">Купить</button>
+										</div>`
+	return fragment;
 }
 
 export const renderModalWindow = (day, film, arr) => {
@@ -19,6 +35,8 @@ export const renderModalWindow = (day, film, arr) => {
 	let times = Object.keys(today.seans);
 	let seans = '';
 	let currentSeans = 0;
+	let amount = 0;
+	let price = 240;
 
 	times.forEach((element, id) => {
 		seans +=`<span data-id="${id}" class="modal__time${id === 0 ? ' current_time' : ''}">${element}</span>`;
@@ -41,7 +59,7 @@ export const renderModalWindow = (day, film, arr) => {
 						</div>
 					</div>
 					<div class="modal__footer">
-
+						${renderTotalPrice(amount, price)}
 					</div>
 				</div>
 			</div>
@@ -49,12 +67,27 @@ export const renderModalWindow = (day, film, arr) => {
 	`);
 
 	document.querySelector('.modal__content').addEventListener('click', (e) => {
-		if (e.target.getAttribute('data-id') !== null){
+		if (e.target.getAttribute('data-id') !== null && !e.target.classList.contains('place__busy')){
 			let arr = e.target.getAttribute('data-id').split('-');
 			let place = Number(arr[0]) === 0 ? Number(arr[1]) : Number(arr[0]) * countPlace + Number(arr[1]);
-			today.seans[times[currentSeans]][place] = 1;
-			e.target.classList.add(`place__busy`);
-			console.log(place);
+			if (e.target.classList.contains('place__selected')){
+				today.seans[times[currentSeans]][place] = 0;
+				amount -= 1;
+			}
+			else{
+				today.seans[times[currentSeans]][place] = 1;
+				amount += 1;
+			}
+			document.querySelector('.modal__footer').innerHTML = renderTotalPrice(amount, price);
+			let button = document.querySelector('.registration__buy');
+			if (button !== null){
+				button.addEventListener('click', () =>{
+						postBuy();
+						document.querySelector('.modal').remove();
+				});
+			}
+			e.target.classList.toggle(`place__selected`);
+			e.target.classList.toggle(`place__free`);
 		}
 	})
 
@@ -69,12 +102,12 @@ export const renderModalWindow = (day, film, arr) => {
 	})
 	
 	document.querySelector(".modal__close").addEventListener('click', () => {
-
 		document.querySelector('.modal').remove();
 	});
 
 	document.querySelector('.modal').addEventListener('click', (e) => {
 		if (e.target.className == 'modal__overlay')
 			document.querySelector('.modal').remove();
-	})
+	});
+
 }
