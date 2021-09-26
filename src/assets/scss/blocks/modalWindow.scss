@@ -1,9 +1,9 @@
 .modal{
+	overflow: hidden;
 	&__overlay{
 		z-index: 1000;
 		position: fixed;
-		height: 100vh;
-		overflow: hidden;
+		// overflow: auto;
 		top: 0;
 		bottom: 0;
 		right: 0;
@@ -12,7 +12,6 @@
 	}
 	&__window{
 		width: 80%;
-		overflow: hidden;
 		background: white;
 		margin: 100px auto;
 		border-radius: 10px;

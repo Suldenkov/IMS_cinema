@@ -4,11 +4,10 @@ import {URL} from '../config/config';
 
 export let data = []
 
-export const getTimeTable = async () => {
-	await axios.get(`${URL}/api`)
+export const getTimeTable = async (day = 1) => {
+	await axios.get(`${URL}/api/${day}`)
 	.then((response) => {
-		data = response.data.data;
-		// console.log(response.data['data'])
+		data = response.data.films;
 	})
 	.catch((error) => {
 		console.log(error);

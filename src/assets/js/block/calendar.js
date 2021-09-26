@@ -41,10 +41,10 @@ function createCalendar()
 }
 
 
-getTimeTable()
+createCalendar();
+getTimeTable(day + 1)
 .then(() => {
-    createCalendar();
-    renderToday(day);
+    renderToday();
 })
 
 
@@ -53,9 +53,11 @@ calendar.addEventListener('click', (e) => {
     allDay[day].classList.remove('slider__currentDay');
     day = parseInt(e.target.closest('div').dataset.id);
     allDay[day].classList.add('slider__currentDay');
-    // createCalendar()
-    renderToday(day);
-    
+    getTimeTable(day + 1)
+    .then(() => {
+        // console.log(day + 1);
+        renderToday();
+    })
 })
 
 

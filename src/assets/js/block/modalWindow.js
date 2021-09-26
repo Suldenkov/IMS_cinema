@@ -1,7 +1,9 @@
 import {postBuy} from '../api/api';
 let countPlace = 20;
+
 const renderArea = (places) => {
 	let row = 1;
+	let countPlace = 20;
 	let fragment = places.reduce((accamulator, value, index) => {
 		let place = index > countPlace -1 ? index % countPlace + 1: index + 1;
 		if (index !== 0 && index % countPlace === 0)
@@ -111,3 +113,69 @@ export const renderModalWindow = (day, film, arr) => {
 	});
 
 }
+
+// const renderArea = (places) => {
+// 	let row = 1;
+// 	let countPlace = 20;
+// 	let fragment = places.reduce((accamulator, value, index) => {
+// 		let place = index > countPlace -1 ? index % countPlace + 1: index + 1;
+// 		if (index !== 0 && index % countPlace === 0)
+// 			accamulator += `</div><div class="row"><span class="row__title">Ряд ${row++}</span>`
+// 		return accamulator += `<span data-id="${row - 2}-${place - 1}" class="place${value ? ' place__busy' : ' place__free'}">${place}</span>`;
+// 	}, `<div class="row"><span class="row__title">Ряд ${row++}</span>`);
+// 	fragment += `</div>`;
+// 	return (fragment);
+// }
+
+// export const createContentModal = (film, arr) => {
+// 	let films = ['Шан-Чи и легенда десяти колец', 'Нефутбол', 'Мафия', 'Отряд самоубийц 2', 'После. глава 3', 'Главный герой', 'Воспоминание'];
+// 	let today = arr[films.indexOf(film) + 1]; 
+// 	let times = Object.keys(today.seans);
+// 	let content = '<div class="modal__time_table">';
+
+// 	times.forEach((element, id) => {
+// 		content +=`<span data-id="${id}" class="modal__time${id === 0 ? ' current_time' : ''}">${element}</span>`;
+// 	});
+// 	content += `</div>
+// 				<div class="modal__content">
+// 					${renderArea(today.seans[times[0]])}
+// 				</div>`;
+
+// 	return content;
+// }
+
+// const _createModal = (content, title) => {
+// 	const modal = document.createElement('div');
+
+// 	modal.classList.add('modal');
+// 	modal.insertAdjacentHTML('afterbegin', `
+// 			<div class="modal__overlay">
+// 				<div class="modal__window">
+// 					<div class="modal__header">
+// 						<span class="modal__title">График сеансов на ${title}</span>
+// 						<span class="modal__close">&#10006</span>
+// 					</div>
+// 					<div class="modal__body">
+// 						${content}
+// 					</div>
+// 					<div class="modal__footer">
+						
+// 					</div>
+// 				</div>
+// 			</div>
+// 	`);
+// 	document.body.appendChild(modal);
+// 	return modal;
+// }
+// // ${renderTotalPrice(amount, price)}
+// window.modal = (content, title) => {
+// 	let modal = _createModal(content, title);
+
+// 	return {
+// 		open(){},
+// 		close(){},
+// 		destroy(){}
+// 	}
+// }
+
+// $.modal(open)
