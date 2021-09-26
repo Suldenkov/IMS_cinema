@@ -1,8 +1,7 @@
 import {numberDay, URL} from '../config/config'
-// // import { renderModalWindow } from './modalWindow';
+import {modal} from '../index'
 import {data} from '../api/api'
 import * as conf from '../config/films.config';
-import axios from 'axios';
 import { createContentModal } from './modalWindow';
 
 const   poster = document.querySelector('.poster');
@@ -27,7 +26,11 @@ poster.addEventListener('click', (e) => {
         filmName = e.target.closest('div').parentElement.dataset.title;
     else if (e.target.closest('div').className === 'poster__film')
         film = e.target.closest('div').dataset.title;
-    if (filmName !== '')
-        window.modal(createContentModal(filmName, data), 0);
-        // renderModalWindow(0, filmName, data);
+    if (filmName !== ''){
+        let current = Object.values(data).filter(offer => offer.title === filmName)[0];
+        modal.setData(current);
+        modal.setTitle(`График сеансов на ${document.querySelector('.slider__currentDay').children[0].textContent}`)
+        modal.setContent(createContentModal(current));
+        modal.open();
+    }
 })

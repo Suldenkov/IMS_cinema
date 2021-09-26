@@ -1,5 +1,9 @@
 .modal{
+	display: none;
 	overflow: hidden;
+	&__open{
+		display: block;
+	}
 	&__overlay{
 		z-index: 1000;
 		position: fixed;
@@ -11,7 +15,7 @@
 		background: rgba(0, 0, 0, 0.5);
 	}
 	&__window{
-		width: 80%;
+		width: 65%;
 		background: white;
 		margin: 100px auto;
 		border-radius: 10px;
@@ -62,7 +66,6 @@
 }
 
 .row{
-	margin: auto 0;
 	margin-top: 0.6em;
 	display: flex;
 	justify-content: space-between;
