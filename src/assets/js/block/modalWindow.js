@@ -1,5 +1,5 @@
+import { postBuy } from '../api/api';
 import {$} from '../config/config'
-// import {postBuy} from '../api/api';
 let countPlaceRow = 20;
 
 // const renderArea = (places) => {
@@ -115,6 +115,39 @@ let countPlaceRow = 20;
 
 // }
 
+const choicePlace = () => {
+	let countPlace = 0;
+	let data = {};
+
+	return ({
+		addPlace: (place, time) => {
+			if (!(time in data))
+				data[time] = [];
+			data[time].push(place);
+			countPlace++;
+		},
+		removePlace: (place, time) => {
+			if (!(time in data))
+				data[time] = [];
+			let index = data[time].indexOf(place);
+			data[time].splice(index, 1);
+			countPlace--;
+		},
+		getCountPlace(){
+			return countPlace;
+		},
+		getChoicePlace(){
+			return data;
+		},
+		setCountPlace(count){
+			countPlace = count;
+		},
+		setPlace(){
+			data = {};
+		}
+	})
+}
+
 const renderArea = (places) => {
 	let row = 1;
 	let countPlace = 20;
@@ -142,7 +175,18 @@ export const createContentModal = (data) => {
 	return content;
 }
 
-const createFooter = (amount, price) => {
+const updatePlace = (data, placeControl) => {
+	let obj = placeControl.getChoicePlace();
+	Object.keys(obj).forEach((key) => {
+		obj[key].forEach((index) => {
+			data.seans[key][index] = 1;
+		})
+	})
+	postBuy();
+}
+
+const createFooter = (placeControl, price, $modal, modal, data) => {
+	let amount = placeControl.getCountPlace();
 	let fragment = amount === 0 ? '' : `<div class="total">
 											<span class="total__amount">
 												Биллетов: ${amount}
@@ -154,7 +198,14 @@ const createFooter = (amount, price) => {
 										<div class="registration">
 												<button class="registration__buy">Купить</button>
 										</div>`
-	return fragment;
+	$modal.querySelector('.modal__footer').innerHTML = fragment;
+	const button = document.querySelector('.registration__buy');
+	if (button !== null){
+		button.addEventListener('click', () => {
+			updatePlace(data, placeControl)
+			modal.close();
+		});
+	}
 }
 
 const _createModal = (content, title) => {
@@ -181,24 +232,6 @@ const _createModal = (content, title) => {
 	return modal;
 }
 
-const choicePlace = (obj) => {
-	let countPlace = 0;
-	let data = obj;
-	return ({
-		addPlace: (place, time) => {
-			data.seans[time][place] = 1;
-			countPlace++;
-		},
-		removePlace: (place, time) => {
-			data.seans[time][place] = 0;
-			countPlace--;
-		},
-		getCountPlace(){
-			return countPlace;
-		}
-	})
-}
-
 $.modal = (content, title) => {
 	const $modal = _createModal(content, title);
 	const modal = {
@@ -213,7 +246,7 @@ $.modal = (content, title) => {
 		}
 	};
 	let data = {};
-	let placeControl = null;
+	let placeControl = choicePlace();
 
 	$modal.addEventListener('click', (e) => {
 		if (e.target.dataset.close)
@@ -222,6 +255,10 @@ $.modal = (content, title) => {
 			$modal.querySelector('.current_time').classList.remove('current_time');
 			e.target.classList.add('current_time');
 			$modal.querySelector('.modal__content').innerHTML = renderArea(data.seans[e.target.textContent]);
+
+			placeControl.setCountPlace(0);
+			placeControl.setPlace();
+			createFooter(placeControl, 180, $modal, modal, data);
 		}
 		else if (e.target.dataset.place && !e.target.classList.contains('place__busy')){
 			let arr = e.target.dataset.place.split('-');
@@ -231,14 +268,7 @@ $.modal = (content, title) => {
 				placeControl.removePlace(place, time);
 			else
 				placeControl.addPlace(place, time);
-			$modal.querySelector('.modal__footer').innerHTML = createFooter(placeControl.getCountPlace(), 180);
-			// let button = document.querySelector('.registration__buy');
-			// if (button !== null){
-			// 	button.addEventListener('click', () =>{
-			// 			postBuy();
-			// 			document.querySelector('.modal').remove();
-			// 	});
-			// }
+			createFooter(placeControl, 180, $modal, modal, data);
 			e.target.classList.toggle(`place__selected`);
 			e.target.classList.toggle(`place__free`);
 		}
@@ -247,7 +277,9 @@ $.modal = (content, title) => {
 	return Object.assign(modal, {
 		setData(obj){
 			data = obj;
-			placeControl = choicePlace(obj);
+			placeControl.setCountPlace(0);
+			placeControl.setPlace();
+			createFooter(placeControl, 180, $modal, modal, data);
 		},
 		setTitle(titleHtml){
 			$modal.querySelector('[data-title]').innerHTML = titleHtml;

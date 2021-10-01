@@ -15,6 +15,7 @@ export const getTimeTable = async (day = 1) => {
 }
 
 export const postBuy = async () => {
+	// console.log(data);
 	await axios.post(`${URL}/api`, {data})
 	.then((response) => {
 		console.log(response);

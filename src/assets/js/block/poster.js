@@ -1,7 +1,6 @@
 import {numberDay, URL} from '../config/config'
 import {modal} from '../index'
 import {data} from '../api/api'
-import * as conf from '../config/films.config';
 import { createContentModal } from './modalWindow';
 
 const   poster = document.querySelector('.poster');
