@@ -5,7 +5,7 @@ import * as conf from '../config/config'
 const   calendar = document.querySelector('.slider__days');
 const   leftArrow = document.querySelector('.arrow__left');
 const   rightArrow = document.querySelector('.arrow__right');
-let     day = 0;
+export let     day = 0;
 
 function getWeekDay(date) {
 	let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];

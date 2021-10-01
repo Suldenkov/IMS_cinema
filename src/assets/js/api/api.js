@@ -1,5 +1,4 @@
 import axios from "axios";
-import { renderToday } from "../block/poster";
 import {URL} from '../config/config';
 
 export let data = []
@@ -14,9 +13,9 @@ export const getTimeTable = async (day = 1) => {
 	})
 }
 
-export const postBuy = async () => {
+export const postBuy = async (day = 1) => {
 	// console.log(data);
-	await axios.post(`${URL}/api`, {data})
+	await axios.put(`${URL}/api/${day}`, {films: {...data}})
 	.then((response) => {
 		console.log(response);
 	})

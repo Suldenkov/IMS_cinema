@@ -1,4 +1,5 @@
 import { postBuy } from '../api/api';
+import { day } from '../block/calendar'
 import {$} from '../config/config'
 let countPlaceRow = 20;
 
@@ -182,7 +183,7 @@ const updatePlace = (data, placeControl) => {
 			data.seans[key][index] = 1;
 		})
 	})
-	postBuy();
+	postBuy(day + 1);
 }
 
 const createFooter = (placeControl, price, $modal, modal, data) => {
